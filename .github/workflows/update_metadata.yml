@@ -8,6 +8,11 @@ on:
 jobs:
   update-patches:
     runs-on: ubuntu-latest
+    # The 'Commit and Push Changes' step pushes the regenerated hashes.json
+    # and .vbs.patch files back to master, so the default GITHUB_TOKEN needs
+    # 'contents: write'. Default for forks is read-only.
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
