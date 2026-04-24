@@ -1,5 +1,5 @@
---- "Elvira and the Party Monsters (Bally 1989)_Bigus(MOD)2.2.vbs.original"	2024-06-11 22:33:07.070821741 +0200
-+++ "Elvira and the Party Monsters (Bally 1989)_Bigus(MOD)2.2.vbs"	2024-06-11 22:32:57.597569459 +0200
+--- Elvira and the Party Monsters (Bally 1989)_Bigus(MOD)2.2.vbs.original
++++ Elvira and the Party Monsters (Bally 1989)_Bigus(MOD)2.2.vbs
 @@ -1103,7 +1103,7 @@
  			
  			.AddActor FlexDMD.NewFrame("BackColour")

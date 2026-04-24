@@ -1,5 +1,5 @@
---- No Good Gofers (Williams 1997) V1.1.2/No Good Gofers (Williams 1997) V1.1.2.vbs.original	2026-04-03 19:42:39
-+++ No Good Gofers (Williams 1997) V1.1.2/No Good Gofers (Williams 1997) V1.1.2.vbs	2026-04-03 19:41:05
+--- No Good Gofers (Williams 1997) V1.1.2.vbs.original
++++ No Good Gofers (Williams 1997) V1.1.2.vbs
 @@ -320,9 +320,9 @@
      White_Pumper.visible = visState
      
