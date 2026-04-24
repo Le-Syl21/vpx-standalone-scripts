@@ -65,7 +65,7 @@ jobs:
           name: hashes
           path: hashes.json
 
-      - if: github.repository == 'jsm174/vpx-standalone-scripts' && github.ref == 'refs/heads/master'
+      - if: github.repository == 'Le-Syl21/vpx-standalone-scripts' && github.ref == 'refs/heads/master'
         name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
