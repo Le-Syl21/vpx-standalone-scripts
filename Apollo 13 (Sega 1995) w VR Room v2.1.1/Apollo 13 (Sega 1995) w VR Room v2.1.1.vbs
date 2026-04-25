@@ -265,6 +265,11 @@ Sub Table1_Init
 	End With
 	On Error Goto 0
 
+	' PinReady: fix for vpinball/vpinball#1783 - register direct B2S callbacks
+	' before the polling fallback kicks in (~925 ms). Without this, solenoids
+	' get consumed by two readers and flippers stick in the up position.
+	vpmInit Me
+
 	If b2son Then bgsko = bkgg	
 
 'ignore all solenoids - then add the timer to renable all the solenoids after 2 seconds
