@@ -1,0 +1,53 @@
+--- Monte Carlo (Gottlieb 1987)_Bigus(MOD)2.0.vbs.original
++++ Monte Carlo (Gottlieb 1987)_Bigus(MOD)2.0.vbs
+@@ -72,7 +72,7 @@
+ 	If Light6.State=1 then Flasher13.Visible=True else Flasher13.Visible=False
+ 	If Light5.State=1 then Flasher14.Visible=True else Flasher14.Visible=False
+ 
+-if light18.state = 1 Then LightAL1.state = 2:LightAL2.state = 2:LightAL3.state = 2:LightAL4.state = 2:LightAL5.state = 2:LightAL10M.state = 2 Else
++if light18.state = 1 Then LightAL1.state = 2:LightAL2.state = 2:LightAL3.state = 2:LightAL4.state = 2:LightAL5.state = 2:LightAL10M.state = 2
+ if light18.state = 0 Then LightAL1.state = 0:LightAL2.state = 0:LightAL3.state = 0:LightAL4.state = 0:LightAL5.state = 0:LightAL10M.state = 0
+ End Sub
+ 
+@@ -454,7 +454,7 @@
+ 	' stop the sound of deleted balls
+     For b = UBound(BOT) + 1 to tnob
+         rolling(b) = False
+-        StopSound("fx_ballrolling" & b)
++        StopSound "fx_ballrolling" & b
+     Next
+ 
+ 	' exit the sub if no balls on the table
+@@ -466,19 +466,19 @@
+       If BallVel(BOT(b) ) > 1 Then
+         rolling(b) = True
+         if BOT(b).z < 30 Then ' Ball on playfield
+-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )/7, AudioPan(BOT(b) ), 0, Pitch(BOT(b) ), 1, 0, AudioFade(BOT(b) )
++          PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b))/7, AudioPan(BOT(b)), 0, Pitch(BOT(b)), 1, 0, AudioFade(BOT(b))
+         Else ' Ball on raised ramp
+-          PlaySound("fx_ballrolling" & b), -1, Vol(BOT(b) )/12, AudioPan(BOT(b) ), 0, Pitch(BOT(b) )+50000, 1, 0, AudioFade(BOT(b) )
++          PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b))/7, AudioPan(BOT(b)), 0, Pitch(BOT(b))+50000, 1, 0, AudioFade(BOT(b))
+         End If
+       Else
+         If rolling(b) = True Then
+-          StopSound("fx_ballrolling" & b)
++          StopSound "fx_ballrolling" & b
+           rolling(b) = False
+         End If
+       End If
+  ' play ball drop sounds
+         If BOT(b).VelZ < -1 and BOT(b).z < 55 and BOT(b).z > 27 Then 'height adjust for ball drop sounds
+-            PlaySound "fx_ball_drop" & b, 0, ABS(BOT(b).velz)/17, AudioPan(BOT(b)), 0, Pitch(BOT(b)), 1, 0, AudioFade(BOT(b))
++            PlaySound "fx_ball_drop" & b, 0, ABS(BOT(b).VelZ)/17, AudioPan(BOT(b)), 0, Pitch(BOT(b)), 1, 0, AudioFade(BOT(b))
+         End If
+     Next
+ End Sub
+@@ -488,7 +488,7 @@
+ '**********************
+ 
+ Sub OnBallBallCollision(ball1, ball2, velocity)
+-	PlaySound("fx_collide"), 0, Csng(velocity) ^2 / 2000, AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
++	PlaySound "fx_collide", 0, Csng(velocity)^2 / 2000, AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+ End Sub
+ 
+  '**********************

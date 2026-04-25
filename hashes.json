@@ -1620,6 +1620,16 @@
     }
   },
   {
+    "file": "Monte Carlo (Gottlieb 1987)_Bigus(MOD)2.0.vbs.original",
+    "sha256": "31356c26e601af706ee56f2077201e4754ffb15b09589a1cd68a67aba6eec3d6",
+    "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Monte Carlo (Gottlieb 1987)_Bigus(MOD)2.0/Monte Carlo (Gottlieb 1987)_Bigus(MOD)2.0.vbs.original",
+    "patched": {
+      "file": "Monte Carlo (Gottlieb 1987)_Bigus(MOD)2.0.vbs",
+      "sha256": "05d1af517bdbb68991b4788b4fda79461604e78b188aa44d209dc8b127c0a083",
+      "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Monte Carlo (Gottlieb 1987)_Bigus(MOD)2.0/Monte Carlo (Gottlieb 1987)_Bigus(MOD)2.0.vbs"
+    }
+  },
+  {
     "file": "Motley Crue SS.vbs.original",
     "sha256": "f771751d5e7d873a8afa954fbab002375ee76fb86ec0336744962a68adf900f3",
     "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Motley Crue SS/Motley Crue SS.vbs.original",
@@ -2397,6 +2407,26 @@
       "file": "Taxi (Williams 1988) VPW v1.2.2.vbs",
       "sha256": "021693171f198ef492f7c376cebce15ab44e88ba1b93e04ae297a63f9a0694ae",
       "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Taxi (Williams 1988) VPW v1.2.2/Taxi (Williams 1988) VPW v1.2.2.vbs"
+    }
+  },
+  {
+    "file": "Tee'd Off (Gottlieb 1993)_Bigus(MOD)3.0.vbs.original",
+    "sha256": "8cdf24e660f26d33a36f6c59d41ccbbddfd4a240f2e9d416c118b10068ecb2a5",
+    "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Tee'd Off (Gottlieb 1993)_Bigus(MOD)3.0/Tee'd Off (Gottlieb 1993)_Bigus(MOD)3.0.vbs.original",
+    "patched": {
+      "file": "Tee'd Off (Gottlieb 1993)_Bigus(MOD)3.0.vbs",
+      "sha256": "9c0312a1d387c9172f600e0c02740079d8aa17e6a1b584a23c45af06d7b84d40",
+      "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Tee'd Off (Gottlieb 1993)_Bigus(MOD)3.0/Tee'd Off (Gottlieb 1993)_Bigus(MOD)3.0.vbs"
+    }
+  },
+  {
+    "file": "Tee'd Off (Gottlieb 1993)_Bigus(MOD)3.1.vbs.original",
+    "sha256": "b2dff40057f3602fb869f026557125f55888de6674d671e0a03c2d8b2f343217",
+    "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Tee'd Off (Gottlieb 1993)_Bigus(MOD)3.1/Tee'd Off (Gottlieb 1993)_Bigus(MOD)3.1.vbs.original",
+    "patched": {
+      "file": "Tee'd Off (Gottlieb 1993)_Bigus(MOD)3.1.vbs",
+      "sha256": "0cbf646b6dd783bc038d5512e0009886b864261d9c44fc6b27f865aa1748a9cf",
+      "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Tee'd Off (Gottlieb 1993)_Bigus(MOD)3.1/Tee'd Off (Gottlieb 1993)_Bigus(MOD)3.1.vbs"
     }
   },
   {
