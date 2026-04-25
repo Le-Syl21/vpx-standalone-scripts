@@ -1,0 +1,610 @@
+'Monte Carlo'By Gottlieb/Premier'1987Option Explicit
+
+On Error Resume Next
+ExecuteGlobal GetTextFile("controller.vbs")
+If Err Then MsgBox "You need the controller.vbs in order to run this table, available in the vp10 package"
+On Error Goto 0
+
+'Dim UseVPMDMD
+'UseVPMDMD = 1
+
+Dim VarRol,VarHidden, loopvar
+If Table1.ShowDT = true then 
+	VarRol=0
+	VarHidden=0
+	For Each loopvar in dtdisplay
+		loopvar.Visible = True
+	Next
+	DisplayTimer.Enabled=True
+Ramp27.visible = 1
+Ramp28.visible = 1
+Wall13.visible = 1
+Wall65.visible = 1
+Else 
+	VarRol=0
+	VarHidden=0
+	For Each loopvar in dtdisplay
+		loopvar.Visible = False
+	Next
+	DisplayTimer.Enabled=False
+Ramp27.visible = 0
+Ramp28.visible = 0
+Wall13.visible = 0
+Wall65.visible = 0
+End If
+
+If B2SOn = true Then 
+	VarHidden=1
+End If
+LoadVPM "01210000","sys80.vbs",3.10
+Const cGameName="mntecrlo",UseSolenoids=2,UseLamps=1,UseGI=0,SSolenoidOn="SolOn",SSolenoidOff="SolOff",SFlipperOn="FlipperUp",SFlipperOff="FlipperDown"Const SCoin="coin3",cCredits=""Set LampCallback=GetRef("UpdateMultipleLamps")Sub UpdateMultipleLamps	LI4=Light4.State 'BALL GATE		If LI4<>OL4 Then			IF LI4=1 Then				Gate.RotateToEnd			Else				Gate.RotateToStart			End If		End If	OL4=LI4	LI12=Light12.State 'BALL RELEASE	If LI12<>OL Then		If LI12=0 Then			If TroughBalls>0 Then				BallRelease.CreateBall				BallRelease.Kick 180,3				PlaySound"ballrel"				TroughBalls=TroughBalls-1			End If			If TroughBalls=0 Then Controller.Switch(42)=0		End If	End If	OL=LI12	LIT17=Light17a.State 'Spinning Wheel	If LIT17<>OL17 Then		If LIT17=1 Then		End If	End If	OL17=LIT17	LI13=Light13.State 'STARGATE RAMP	If LI13<>OL13 Then
+		Ramp12.HeightBottom = 60
+		Ramp12.Collidable = False		'Kicker6.Enabled = False		'Kicker7.Enabled = False
+ColBetPoolLight.State = 0    If LI13=0 Then
+		Ramp12.HeightBottom = 0
+		Ramp12.Collidable = True		'Kicker6.Enabled = True		'Kicker7.Enabled = True
+ColBetPoolLight.State = 2	End If	End If	OL13=LI13
+
+Dim yy
+for each yy in RWprims
+yy.blenddisablelighting = 15
+Next
+End SubSolCallback(5)="dt123.SolDropUp"SolCallback(1)="dt45.SolDropUp"SolCallback(6)="dt678.SolDropUp"SolCallback(2)="dt910.SolDropUp"solcallback(3)="K3.SolOut"     solcallback(4)="K2.SolOut"    Solcallback(7)="K1.SolOut"SolCallback(8)="vpmSolSound""knocker"","SolCallback(9)="SolOutHole"SolCallback(sLLFlipper)="vpmSolFlipper LeftFlipper,nothing,"SolCallback(sLRFlipper)="vpmSolFlipper RightFlipper,nothing,"Sub SolOutHole(Enabled)If Enabled Then	If DrainBalls=True Then	TroughBalls=TroughBalls+1	Controller.Switch(65)=0	Controller.Switch(42)=1	Drain.DestroyBall	DrainBalls=False	End IfEnd IfEnd SubDim bsTrough,dt123,dt45,dt678,dt910,K1,K2,K3,TroughBalls,DrainBalls,LI4,OL4,LI13,OL13,LI12,OL,LIT17,OL17,Place,MyBall,XTroughBalls=2:DrainBalls=True:OL=0:OL13=0:OL4=0:Place=0:OL17=0Dim BallLocate,TTable,Frame,BallCreated
+Dim kickmagFrame=0:Place=0:BallCreated=False'BallLocate=Array(B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11)Sub Table1_InitController.Games(cGameName).Settings.Value("dmd_red")=0Controller.Games(cGameName).Settings.Value("dmd_green")=223Controller.Games(cGameName).Settings.Value("dmd_blue")=223'For X=0 To 11:BallLocate(X).IsDropped=1:RWall(X).IsDropped=1:Next'Barrier.IsDropped=1'Barrier2.IsDropped=1'RWall(Frame).IsDropped=0'BallLocate(Place).IsDropped=0'RWheel Frame,Place,1   With Controller      .GameName=cGameName      .SplashInfoLine="MONTE CARLO BY GOTTLIEB/PREMIER 1987"		.HandleMechanics=0		.HandleKeyboard=0		.ShowDMDOnly=1		.ShowFrame=0		.ShowTitle=0
+		.Hidden= VarHidden
+		.Games(cGameName).Settings.Value("rol")=VarRol		.Run		If Err Then MsgBox Err.Description	End With	On Error Goto 0   PinmameTimer.Interval=PinmameInterval   PinmameTimer.Enabled=1   vpmNudge.TiltSwitch=57   vpmNudge.Sensitivity=5   vpmNudge.TiltObj=Array(Bumper1a,Bumper2a,Bumper3a,LeftSlingshot,RightSlingshot)	Set TTable=New cvpmTurnTable	TTable.InitTurnTable TT,60
+	TTable.SpinUp=35	TTable.SpinDown=5		   Set dt123=New cvpmDropTarget   dt123.InitDrop Array(Target1,Target2,Target3),Nothing   dt123.InitSnd "flapclos","flapopen"   dt123.CreateEvents "dt123"   Set dt45=New cvpmDropTarget   dt45.InitDrop Array(Target4,Target5),Nothing   dt45.initsnd "flapclos","flapopen"   dt45.CreateEvents "dt45"      Set dt678=New cvpmDropTarget   dt678.InitDrop Array(Target6,Target7,Target8),Nothing   dt678.InitSnd "flapclos","flapopen"   dt678.CreateEvents "dt678"      Set dt910=New cvpmDropTarget   dt910.InitDrop Array(Target9,Target10),Nothing   dt910.InitSnd "flapclos","flapopen"   dt910.CreateEvents "dt910"   Set K1=New cvpmBallstack   K1.InitSaucer Kicker1,45,165,2   K1.KickAngleVar=5   K1.InitExitSnd "popper","solenoid"   Set K2=New cvpmBallstack   K2.InitSaucer Kicker2,35,100,2   K2.KickAngleVar=5   K2.InitExitSnd "popper","solenoid"      Set K3=new cvpmBallstack   K3.InitSaucer Kicker3,25,270,4   K3.KickAngleVar=5   K3.InitExitSnd "popper","solenoid"
+
+	Set kickmag=new cvpmMagnet
+	kickmag.InitMagnet Trigger1, 14
+	kickmag.GrabCenter = TrueController.Switch(42)=1Controller.Switch(65)=1vpmMapLights AllLightsvpmCreateEvents AllSwitchesEnd SubSub Table1_KeyDown(ByVal KeyCode)	If KeyCode=RightFlipperKey Then Controller.Switch(75)=1	If KeyCode=PlungerKey Then Plunger.Pullback	If vpmKeyDown(KeyCode) Then Exit Sub End SubSub Table1_KeyUp(ByVal KeyCode)	If KeyCode=RightFlipperKey Then Controller.Switch(75)=0	If KeyCode=PlungerKey Then Plunger.Fire:PlaySound "plunger"	If vpmKeyUp(KeyCode) Then Exit Sub End Sub Sub Drain_Hit:Controller.Switch(65)=1:DrainBalls=True:End SubSub Bumper1a_Hit:vpmTimer.PulseSw 20:PlaySound "jet1":End SubSub Bumper2a_Hit:vpmTimer.PulseSw 30:PlaySound "jet1":End SubSub Bumper3a_Hit:vpmTimer.PulseSw 40:PlaySound "jet1":End SubSub Kicker1_Hit:K1.AddBall 0:kickmag.MagnetOn = False:End SubSub Kicker2_Hit:K2.AddBall 0:End SubSub Kicker3_Hit:K3.AddBall 0:End SubSub LeftSlingshot_Slingshot:vpmTimer.PulseSw 53:PlaySound "sling":End SubSub RightSlingshot_Slingshot:vpmTimer.PulseSw 53:PlaySound "sling":End SubDim MYSub Kicker4_Hit:MY=-INT(ActiveBall.VelY)/3:Me.DestroyBall:Kicker4.TimerEnabled=True:End Sub
+Sub Kicker4_Timer:Kicker5.CreateBall:Kicker5.Kick 180,MY:Kicker4.TimerEnabled=False:End Sub'Sub Kicker6_Hit:Me.DestroyBall:Kicker7.CreateBall:Kicker7.Kick 0,20:End Sub'Gottlieb Monte Carlo'added by InkochnitoSub editDips	Dim vpmDips : Set vpmDips = New cvpmDips	With vpmDips		.AddForm  700,400,"Monte Carlo - DIP switches"		.AddFrame 2,4,190,"Maximum credits",49152,Array("8 credits",0,"10 credits",32768,"15 credits",&H00004000,"20 credits",49152)'dip 15&16		.AddFrame 2,80,190,"Coin chute 1 and 2 control",&H00002000,Array("seperate",0,"same",&H00002000)'dip 14		.AddFrame 2,126,190,"Playfield special",&H00200000,Array("replay",0,"extra ball",&H00200000)'dip 22		.AddFrame 2,172,190,"High games to date control",&H00000020,Array("no effect",0,"reset high games 2-5 on power off",&H00000020)'dip 6		.AddFrame 2,218,190,"10.000.000 points light",&H00000080,Array("lights random",0,"lights after 40 switch hits",&H00000080)'dip 8		.AddFrame 2,264,190,"Match number control",&H40000000,Array("match with display",0,"match with roulette",&H40000000)'dip 31		.AddFrame 2,310,190,"Ball lock control",&H80000000,Array("one lock at the time",0,"all locks on",&H80000000)'dip 32		.AddFrame 205,4,190,"High game to date awards",&H00C00000,Array("not displayed and no award",0,"displayed and no award",&H00800000,"displayed and 2 replays",&H00400000,"displayed and 3 replays",&H00C00000)'dip 23&24		.AddFrame 205,80,190,"Balls per game",&H01000000,Array("5 balls",0,"3 balls",&H01000000)'dip 25		.AddFrame 205,126,190,"Replay limit",&H04000000,Array("no limit",0,"one per game",&H04000000)'dip 27		.AddFrame 205,172,190,"Novelty",&H08000000,Array("normal",0,"extra ball and replay scores 500K",&H08000000)'dip 28		.AddFrame 205,218,190,"Game mode",&H10000000,Array("replay",0,"extra ball",&H10000000)'dip 29		.AddFrame 205,264,190,"3rd coin chute credits control",&H20000000,Array("no effect",0,"add 9",&H20000000)'dip 30		.AddChk 205,316,180,Array("Match feature",&H02000000)'dip 26		.AddChk 205,331,190,Array("Attract sound",&H00000040)'dip 7		.AddLabel 50,360,300,20,"After hitting OK, press F3 to reset game with new settings."		.ViewDips	End WithEnd SubSet vpmShowDips = GetRef("editDips")
+
+Sub Trigger1_Hit()
+	kickmag.MagnetOn = True
+End Sub
+
+Sub flashertimer_Timer()	
+	If Light9.State=1 then Flasher9.Visible=True else Flasher9.Visible=False
+	If Light24.State=1 then Flasher10.Visible=True else Flasher10.Visible=False
+	If Light8.State=1 then Flasher11.Visible=True else Flasher11.Visible=False
+	If Light7.State=1 then Flasher12.Visible=True else Flasher12.Visible=False
+	If Light6.State=1 then Flasher13.Visible=True else Flasher13.Visible=False
+	If Light5.State=1 then Flasher14.Visible=True else Flasher14.Visible=False
+
+if light18.state = 1 Then LightAL1.state = 2:LightAL2.state = 2:LightAL3.state = 2:LightAL4.state = 2:LightAL5.state = 2:LightAL10M.state = 2
+if light18.state = 0 Then LightAL1.state = 0:LightAL2.state = 0:LightAL3.state = 0:LightAL4.state = 0:LightAL5.state = 0:LightAL10M.state = 0
+End Sub
+
+'EVERYTHING FOR THE ROULETTE WHEEL IS BELOW
+'-------------------------------------------------------------------------------------------
+Set MyBall=SW10.CreateSizedBall(21)
+MyBall.image = "ball_HDR_2"
+SW10.Kick 0,1
+
+Dim LoopObj, spinctr
+spinctr = 0
+
+'MAINTIMER THAT SPINS THE BALL AND THE DISK, ENABLED WHEN LIGHT17A IS ON
+Sub spinnertimer_Timer()
+	If Light17a.State=1 Then
+		If TTable.MotorOn=False then
+			For Each LoopObj in spinnerkickers
+				LoopObj.Kick 0, 1
+				LoopObj.Enabled=false
+			Next
+			TTable.MotorOn=True
+			TTable.AddBall MyBall
+			TTable.AffectBall MyBall
+		End If
+    Spincenter.Roty = spinctr*30 
+		spinctr=spinctr+1  
+		If spinctr>11 then spinctr=0
+	End If
+	If TTable.Speed>=10 then
+		TTable.MotorOn=False
+	End If
+	If TTable.Speed =< 1 and TTable.MotorOn=false Then
+		For Each LoopObj in spinnerkickers
+			LoopObj.Enabled=True
+		Next
+		TTable.RemoveBall MyBall
+	End If
+Nut.Roty = Spincenter.Roty
+Spindisk.RotZ = Spincenter.Roty
+End Sub
+
+'ALL 12 OF THE KICKERS IN THE SPINNING ROULETTE WHEEL. 
+Sub SW00_Hit:RWheel spinctr,0,1:End Sub
+Sub SW00_Unhit:RWheel spinctr,0,0:End Sub
+Sub SW01_Hit:RWheel spinctr,1,1:End Sub
+Sub SW01_Unhit:RWheel spinctr,1,0:End Sub
+Sub SW02_Hit:RWheel spinctr,2,1:End Sub
+Sub SW02_Unhit:RWheel spinctr,2,0:End Sub
+Sub SW03_Hit:RWheel spinctr,3,1:End Sub
+Sub SW03_Unhit:RWheel spinctr,3,0:End Sub
+Sub SW04_Hit:RWheel spinctr,4,1:End Sub
+Sub SW04_Unhit:RWheel spinctr,4,0:End Sub
+Sub SW05_Hit:RWheel spinctr,5,1:End Sub
+Sub SW05_Unhit:RWheel spinctr,5,0:End Sub
+Sub SW10_Hit:RWheel spinctr,6,1:End Sub
+Sub SW10_Unhit:RWheel spinctr,6,0:End Sub
+Sub SW11_Hit:RWheel spinctr,7,1:End Sub
+Sub SW11_Unhit:RWheel spinctr,7,0:End Sub
+Sub SW12_Hit:RWheel spinctr,8,1:End Sub
+Sub SW12_Unhit:RWheel spinctr,8,0:End Sub
+Sub SW13_Hit:RWheel spinctr,9,1:End Sub
+Sub SW13_Unhit:RWheel spinctr,9,0:End Sub
+Sub SW14_Hit:RWheel spinctr,10,1:End Sub
+Sub SW14_Unhit:RWheel spinctr,10,0:End Sub
+Sub SW15_Hit:RWheel spinctr,11,1:End Sub
+Sub SW15_Unhit:RWheel spinctr,11,0:End Sub
+
+Sub RWheel(GR,GS,GT)
+Select Case GR
+	Case 0:Select Case GS
+			Case 0:Controller.Switch(0)=GT
+			Case 1:Controller.Switch(1)=GT
+			Case 2:Controller.Switch(2)=GT
+			Case 3:Controller.Switch(3)=GT
+			Case 4:Controller.Switch(4)=GT
+			Case 5:Controller.Switch(5)=GT
+			Case 6:Controller.Switch(10)=GT
+			Case 7:Controller.Switch(11)=GT
+			Case 8:Controller.Switch(12)=GT
+			Case 9:Controller.Switch(13)=GT
+			Case 10:Controller.Switch(14)=GT
+			Case 11:Controller.Switch(15)=GT
+		End Select
+	Case 1:Select Case GS
+			Case 0:Controller.Switch(15)=GT
+			Case 1:Controller.Switch(0)=GT
+			Case 2:Controller.Switch(1)=GT
+			Case 3:Controller.Switch(2)=GT
+			Case 4:Controller.Switch(3)=GT
+			Case 5:Controller.Switch(4)=GT
+			Case 6:Controller.Switch(5)=GT
+			Case 7:Controller.Switch(10)=GT
+			Case 8:Controller.Switch(11)=GT
+			Case 9:Controller.Switch(12)=GT
+			Case 10:Controller.Switch(13)=GT
+			Case 11:Controller.Switch(14)=GT
+		End Select
+	Case 2:Select Case GS
+			Case 0:Controller.Switch(14)=GT
+			Case 1:Controller.Switch(15)=GT
+			Case 2:Controller.Switch(0)=GT
+			Case 3:Controller.Switch(1)=GT
+			Case 4:Controller.Switch(2)=GT
+			Case 5:Controller.Switch(3)=GT
+			Case 6:Controller.Switch(4)=GT
+			Case 7:Controller.Switch(5)=GT
+			Case 8:Controller.Switch(10)=GT
+			Case 9:Controller.Switch(11)=GT
+			Case 10:Controller.Switch(12)=GT
+			Case 11:Controller.Switch(13)=GT
+		End Select
+	Case 3:Select Case GS
+			Case 0:Controller.Switch(13)=GT
+			Case 1:Controller.Switch(14)=GT
+			Case 2:Controller.Switch(15)=GT
+			Case 3:Controller.Switch(0)=GT
+			Case 4:Controller.Switch(1)=GT
+			Case 5:Controller.Switch(2)=GT
+			Case 6:Controller.Switch(3)=GT
+			Case 7:Controller.Switch(4)=GT
+			Case 8:Controller.Switch(5)=GT
+			Case 9:Controller.Switch(10)=GT
+			Case 10:Controller.Switch(11)=GT
+			Case 11:Controller.Switch(12)=GT
+		End Select
+	Case 4:Select Case GS
+			Case 0:Controller.Switch(12)=GT
+			Case 1:Controller.Switch(13)=GT
+			Case 2:Controller.Switch(14)=GT
+			Case 3:Controller.Switch(15)=GT
+			Case 4:Controller.Switch(0)=GT
+			Case 5:Controller.Switch(1)=GT
+			Case 6:Controller.Switch(2)=GT
+			Case 7:Controller.Switch(3)=GT
+			Case 8:Controller.Switch(4)=GT
+			Case 9:Controller.Switch(5)=GT
+			Case 10:Controller.Switch(10)=GT
+			Case 11:Controller.Switch(11)=GT
+		End Select
+	Case 5:Select Case GS
+			Case 0:Controller.Switch(11)=GT
+			Case 1:Controller.Switch(12)=GT
+			Case 2:Controller.Switch(13)=GT
+			Case 3:Controller.Switch(14)=GT
+			Case 4:Controller.Switch(15)=GT
+			Case 5:Controller.Switch(0)=GT
+			Case 6:Controller.Switch(1)=GT
+			Case 7:Controller.Switch(2)=GT
+			Case 8:Controller.Switch(3)=GT
+			Case 9:Controller.Switch(4)=GT
+			Case 10:Controller.Switch(5)=GT
+			Case 11:Controller.Switch(10)=GT
+		End Select
+	Case 6:Select Case GS
+			Case 0:Controller.Switch(10)=GT
+			Case 1:Controller.Switch(11)=GT
+			Case 2:Controller.Switch(12)=GT
+			Case 3:Controller.Switch(13)=GT
+			Case 4:Controller.Switch(14)=GT
+			Case 5:Controller.Switch(15)=GT
+			Case 6:Controller.Switch(0)=GT
+			Case 7:Controller.Switch(1)=GT
+			Case 8:Controller.Switch(2)=GT
+			Case 9:Controller.Switch(3)=GT
+			Case 10:Controller.Switch(4)=GT
+			Case 11:Controller.Switch(5)=GT
+		End Select
+	Case 7:Select Case GS
+			Case 0:Controller.Switch(5)=GT
+			Case 1:Controller.Switch(10)=GT
+			Case 2:Controller.Switch(11)=GT
+			Case 3:Controller.Switch(12)=GT
+			Case 4:Controller.Switch(13)=GT
+			Case 5:Controller.Switch(14)=GT
+			Case 6:Controller.Switch(15)=GT
+			Case 7:Controller.Switch(0)=GT
+			Case 8:Controller.Switch(1)=GT
+			Case 9:Controller.Switch(2)=GT
+			Case 10:Controller.Switch(3)=GT
+			Case 11:Controller.Switch(4)=GT
+		End Select
+	Case 8:Select Case GS
+			Case 0:Controller.Switch(4)=GT
+			Case 1:Controller.Switch(5)=GT
+			Case 2:Controller.Switch(10)=GT
+			Case 3:Controller.Switch(11)=GT
+			Case 4:Controller.Switch(12)=GT
+			Case 5:Controller.Switch(13)=GT
+			Case 6:Controller.Switch(14)=GT
+			Case 7:Controller.Switch(15)=GT
+			Case 8:Controller.Switch(0)=GT
+			Case 9:Controller.Switch(1)=GT
+			Case 10:Controller.Switch(2)=GT
+			Case 11:Controller.Switch(3)=GT
+		End Select
+	Case 9:Select Case GS
+			Case 0:Controller.Switch(3)=GT
+			Case 1:Controller.Switch(4)=GT
+			Case 2:Controller.Switch(5)=GT
+			Case 3:Controller.Switch(10)=GT
+			Case 4:Controller.Switch(11)=GT
+			Case 5:Controller.Switch(12)=GT
+			Case 6:Controller.Switch(13)=GT
+			Case 7:Controller.Switch(14)=GT
+			Case 8:Controller.Switch(15)=GT
+			Case 9:Controller.Switch(0)=GT
+			Case 10:Controller.Switch(1)=GT
+			Case 11:Controller.Switch(2)=GT
+		End Select
+	Case 10:Select Case GS
+			Case 0:Controller.Switch(2)=GT
+			Case 1:Controller.Switch(3)=GT
+			Case 2:Controller.Switch(4)=GT
+			Case 3:Controller.Switch(5)=GT
+			Case 4:Controller.Switch(10)=GT
+			Case 5:Controller.Switch(11)=GT
+			Case 6:Controller.Switch(12)=GT
+			Case 7:Controller.Switch(13)=GT
+			Case 8:Controller.Switch(14)=GT
+			Case 9:Controller.Switch(15)=GT
+			Case 10:Controller.Switch(0)=GT
+			Case 11:Controller.Switch(1)=GT
+		End Select
+	Case 11:Select Case GS
+			Case 0:Controller.Switch(1)=GT
+			Case 1:Controller.Switch(2)=GT
+			Case 2:Controller.Switch(3)=GT
+			Case 3:Controller.Switch(4)=GT
+			Case 4:Controller.Switch(5)=GT
+			Case 5:Controller.Switch(10)=GT
+			Case 6:Controller.Switch(11)=GT
+			Case 7:Controller.Switch(12)=GT
+			Case 8:Controller.Switch(13)=GT
+			Case 9:Controller.Switch(14)=GT			
+			Case 10:Controller.Switch(15)=GT
+			Case 11:Controller.Switch(0)=GT
+		End Select
+End Select
+End Sub
+
+'LED taken from Victory Table (Gottlieb1987) by Sinbad
+'https://vpinball.com/VPBdownloads/victory-gottlieb-1987-2-0-1/
+
+Dim Digits(40)
+Digits(0) = Array(a00, a05, a0c, a0d, a08, a01, a06, a0f, a02, a03, a04, a07, a0b, a0a, a09, a0e)
+Digits(1) = Array(a10, a15, a1c, a1d, a18, a11, a16, a1f, a12, a13, a14, a17, a1b, a1a, a19, a1e)
+Digits(2) = Array(a20, a25, a2c, a2d, a28, a21, a26, a2f, a22, a23, a24, a27, a2b, a2a, a29, a2e)
+Digits(3) = Array(a30, a35, a3c, a3d, a38, a31, a36, a3f, a32, a33, a34, a37, a3b, a3a, a39, a3e)
+Digits(4) = Array(a40, a45, a4c, a4d, a48, a41, a46, a4f, a42, a43, a44, a47, a4b, a4a, a49, a4e)
+Digits(5) = Array(a50, a55, a5c, a5d, a58, a51, a56, a5f, a52, a53, a54, a57, a5b, a5a, a59, a5e)
+Digits(6) = Array(a60, a65, a6c, a6d, a68, a61, a66, a6f, a62, a63, a64, a67, a6b, a6a, a69, a6e)
+Digits(7) = Array(a70, a75, a7c, a7d, a78, a71, a76, a7f, a72, a73, a74, a77, a7b, a7a, a79, a7e)
+Digits(8) = Array(a80, a85, a8c, a8d, a88, a81, a86, a8f, a82, a83, a84, a87, a8b, a8a, a89, a8e)
+Digits(9) = Array(a90, a95, a9c, a9d, a98, a91, a96, a9f, a92, a93, a94, a97, a9b, a9a, a99, a9e)
+Digits(10) = Array(aa0, aa5, aac, aad, aa8, aa1, aa6, aaf, aa2, aa3, aa4, aa7, aab, aaa, aa9, aae)
+Digits(11) = Array(ab0, ab5, abc, abd, ab8, ab1, ab6, abf, ab2, ab3, ab4, ab7, abb, aba, ab9, abe)
+Digits(12) = Array(ac0, ac5, acc, acd, ac8, ac1, ac6, acf, ac2, ac3, ac4, ac7, acb, aca, ac9, ace)
+Digits(13) = Array(ad0, ad5, adc, add, ad8, ad1, ad6, adf, ad2, ad3, ad4, ad7, adb, ada, ad9, ade)
+Digits(14) = Array(ae0, ae5, aec, aed, ae8, ae1, ae6, aef, ae2, ae3, ae4, ae7, aeb, aea, ae9, aee)
+Digits(15) = Array(af0, af5, afc, afd, af8, af1, af6, aff, af2, af3, af4, af7, afb, afa, af9, afe)
+Digits(16) = Array(b00, b05, b0c, b0d, b08, b01, b06, b0f, b02, b03, b04, b07, b0b, b0a, b09, b0e)
+Digits(17) = Array(b10, b15, b1c, b1d, b18, b11, b16, b1f, b12, b13, b14, b17, b1b, b1a, b19, b1e)
+Digits(18) = Array(b20, b25, b2c, b2d, b28, b21, b26, b2f, b22, b23, b24, b27, b2b, b2a, b29, b2e)
+Digits(19) = Array(b30, b35, b3c, b3d, b38, b31, b36, b3f, b32, b33, b34, b37, b3b, b3a, b39, b3e)
+Digits(20) = Array(b40, b45, b4c, b4d, b48, b41, b46, b4f, b42, b43, b44, b47, b4b, b4a, b49, b4e)
+Digits(21) = Array(b50, b55, b5c, b5d, b58, b51, b56, b5f, b52, b53, b54, b57, b5b, b5a, b59, b5e)
+Digits(22) = Array(b60, b65, b6c, b6d, b68, b61, b66, b6f, b62, b63, b64, b67, b6b, b6a, b69, b6e)
+Digits(23) = Array(b70, b75, b7c, b7d, b78, b71, b76, b7f, b72, b73, b74, b77, b7b, b7a, b79, b7e)
+Digits(24) = Array(b80, b85, b8c, b8d, b88, b81, b86, b8f, b82, b83, b84, b87, b8b, b8a, b89, b8e)
+Digits(25) = Array(b90, b95, b9c, b9d, b98, b91, b96, b9f, b92, b93, b94, b97, b9b, b9a, b99, b9e)
+Digits(26) = Array(ba0, ba5, bac, bad, ba8, ba1, ba6, baf, ba2, ba3, ba4, ba7, bab, baa, ba9, bae)
+Digits(27) = Array(bb0, bb5, bbc, bbd, bb8, bb1, bb6, bbf, bb2, bb3, bb4, bb7, bbb, bba, bb9, bbe)
+Digits(28) = Array(bc0, bc5, bcc, bcd, bc8, bc1, bc6, bcf, bc2, bc3, bc4, bc7, bcb, bca, bc9, bce)
+Digits(29) = Array(bd0, bd5, bdc, bdd, bd8, bd1, bd6, bdf, bd2, bd3, bd4, bd7, bdb, bda, bd9, bde)
+Digits(30) = Array(be0, be5, bec, bed, be8, be1, be6, bef, be2, be3, be4, be7, beb, bea, be9, bee)
+Digits(31) = Array(bf0, bf5, bfc, bfd, bf8, bf1, bf6, bff, bf2, bf3, bf4, bf7, bfb, bfa, bf9, bfe)
+Digits(32) = Array(c00, c05, c0c, c0d, c08, c01, c06, c0f, c02, c03, c04, c07, c0b, c0a, c09, c0e)
+Digits(33) = Array(c10, c15, c1c, c1d, c18, c11, c16, c1f, c12, c13, c14, c17, c1b, c1a, c19, c1e)
+Digits(34) = Array(c20, c25, c2c, c2d, c28, c21, c26, c2f, c22, c23, c24, c27, c2b, c2a, c29, c2e)
+Digits(35) = Array(c30, c35, c3c, c3d, c38, c31, c36, c3f, c32, c33, c34, c37, c3b, c3a, c39, c3e)
+Digits(36) = Array(c40, c45, c4c, c4d, c48, c41, c46, c4f, c42, c43, c44, c47, c4b, c4a, c49, c4e)
+Digits(37) = Array(c50, c55, c5c, c5d, c58, c51, c56, c5f, c52, c53, c54, c57, c5b, c5a, c59, c5e)
+Digits(38) = Array(c60, c65, c6c, c6d, c68, c61, c66, c6f, c62, c63, c64, c67, c6b, c6a, c69, c6e)
+Digits(39) = Array(c70, c75, c7c, c7d, c78, c71, c76, c7f, c72, c73, c74, c77, c7b, c7a, c79, c7e)
+
+Sub DisplayTimer_Timer
+    Dim ChgLED, ii, jj, num, chg, stat, obj, b, x
+    ChgLED=Controller.ChangedLEDs(&Hffffffff, &Hffffffff)
+    If Not IsEmpty(ChgLED)Then
+       For ii=0 To UBound(chgLED)
+          num=chgLED(ii, 0) : chg=chgLED(ii, 1) : stat=chgLED(ii, 2)
+			if (num < 40) then
+              For Each obj In Digits(num)
+                   If chg And 1 Then obj.State=stat And 1
+                   chg=chg\2 : stat=stat\2
+                  Next
+			Else
+			       end if
+        Next
+    End If
+ End Sub
+
+'*********************************************************************
+'                 Positional Sound Playback Functions
+'*********************************************************************
+
+' Play a sound, depending on the X,Y position of the table element (especially cool for surround speaker setups, otherwise stereo panning only)
+' parameters (defaults): loopcount (1), volume (1), randompitch (0), pitch (0), useexisting (0), restart (1))
+' Note that this will not work (currently) for walls/slingshots as these do not feature a simple, single X,Y position
+Sub PlayXYSound(soundname, tableobj, loopcount, volume, randompitch, pitch, useexisting, restart)
+	PlaySound soundname, loopcount, volume, AudioPan(tableobj), randompitch, pitch, useexisting, restart, AudioFade(tableobj)
+End Sub
+
+' Similar subroutines that are less complicated to use (e.g. simply use standard parameters for the PlaySound call)
+Sub PlaySoundAt(soundname, tableobj)
+    PlaySound soundname, 1, 1, AudioPan(tableobj), 0,0,0, 1, AudioFade(tableobj)
+End Sub
+
+Sub PlaySoundAtBall(soundname)
+    PlaySoundAt soundname, ActiveBall
+End Sub
+
+
+'*********************************************************************
+'                     Supporting Ball & Sound Functions
+'*********************************************************************
+
+Function AudioFade(tableobj) ' Fades between front and back of the table (for surround systems or 2x2 speakers, etc), depending on the Y position on the table. "table1" is the name of the table
+	Dim tmp
+    tmp = tableobj.y * 2 / table1.height-1
+    If tmp > 0 Then
+		AudioFade = Csng(tmp ^10)
+    Else
+        AudioFade = Csng(-((- tmp) ^10) )
+    End If
+End Function
+
+Function AudioPan(tableobj) ' Calculates the pan for a tableobj based on the X position on the table. "table1" is the name of the table
+    Dim tmp
+    tmp = tableobj.x * 2 / table1.width-1
+    If tmp > 0 Then
+        AudioPan = Csng(tmp ^10)
+    Else
+        AudioPan = Csng(-((- tmp) ^10) )
+    End If
+End Function
+
+Function Vol(ball) ' Calculates the Volume of the sound based on the ball speed
+    Vol = Csng(BallVel(ball) ^2 / 400)
+End Function
+
+Function Pitch(ball) ' Calculates the pitch of the sound based on the ball speed
+    Pitch = BallVel(ball) * 20
+End Function
+
+Function BallVel(ball) 'Calculates the ball speed
+    BallVel = INT(SQR((ball.VelX ^2) + (ball.VelY ^2) ) )
+End Function
+
+'*****************************************
+'      JP's VP10 Rolling Sounds
+'*****************************************
+
+Const tnob = 5 ' total number of balls
+ReDim rolling(tnob)
+InitRolling
+
+Sub InitRolling
+    Dim i
+    For i = 0 to tnob
+        rolling(i) = False
+    Next
+End Sub
+
+Sub RollingTimer_Timer()
+    Dim BOT, b
+    BOT = GetBalls
+
+	' stop the sound of deleted balls
+    For b = UBound(BOT) + 1 to tnob
+        rolling(b) = False
+        StopSound "fx_ballrolling" & b
+    Next
+
+	' exit the sub if no balls on the table
+    If UBound(BOT) = -1 Then Exit Sub
+
+	' play the rolling sound for each ball
+
+    For b = 0 to UBound(BOT)
+      If BallVel(BOT(b) ) > 1 Then
+        rolling(b) = True
+        if BOT(b).z < 30 Then ' Ball on playfield
+          PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b))/7, AudioPan(BOT(b)), 0, Pitch(BOT(b)), 1, 0, AudioFade(BOT(b))
+        Else ' Ball on raised ramp
+          PlaySound "fx_ballrolling" & b, -1, Vol(BOT(b))/7, AudioPan(BOT(b)), 0, Pitch(BOT(b))+50000, 1, 0, AudioFade(BOT(b))
+        End If
+      Else
+        If rolling(b) = True Then
+          StopSound "fx_ballrolling" & b
+          rolling(b) = False
+        End If
+      End If
+ ' play ball drop sounds
+        If BOT(b).VelZ < -1 and BOT(b).z < 55 and BOT(b).z > 27 Then 'height adjust for ball drop sounds
+            PlaySound "fx_ball_drop" & b, 0, ABS(BOT(b).VelZ)/17, AudioPan(BOT(b)), 0, Pitch(BOT(b)), 1, 0, AudioFade(BOT(b))
+        End If
+    Next
+End Sub
+
+'**********************
+' Ball Collision Sound
+'**********************
+
+Sub OnBallBallCollision(ball1, ball2, velocity)
+	PlaySound "fx_collide", 0, Csng(velocity)^2 / 2000, AudioPan(ball1), 0, Pitch(ball1), 0, 0, AudioFade(ball1)
+End Sub
+
+ '**********************
+'Flipper Shadows
+'***********************
+Sub RealTime_Timer
+  lfs.RotZ = LeftFlipper.CurrentAngle
+  rfs.RotZ = RightFlipper.CurrentAngle
+BallShadowUpdate
+End Sub
+
+
+Sub BallShadowUpdate()
+Dim BallShadow
+BallShadow = Array (BallShadow1,BallShadow2,BallShadow3,BallShadow4,BallShadow5,BallShadow6)
+    Dim BOT, b
+    BOT = GetBalls
+    ' hide shadow of deleted balls
+    If UBound(BOT)<(tnob-1) Then
+        For b = (UBound(BOT) + 1) to (tnob-1)
+            BallShadow(b).visible = 0
+        Next
+    End If
+    ' exit the Sub if no balls on the table
+    If UBound(BOT) = -1 Then Exit Sub
+    ' render the shadow for each ball
+    For b = 0 to UBound(BOT)
+		BallShadow(b).X = BOT(b).X
+		ballShadow(b).Y = BOT(b).Y + 10                       
+        If BOT(b).Z > 20 and BOT(b).Z < 160 Then
+            BallShadow(b).visible = 1
+        Else
+            BallShadow(b).visible = 0
+        End If
+if BOT(b).z > 130 Then 
+ballShadow(b).height = BOT(b).Z - 20
+ballShadow(b).opacity = 80
+Else
+ballShadow(b).height = BOT(b).Z - 24
+ballShadow(b).opacity = 80
+End If
+    Next	
+End Sub
+
+
+
+Sub Pins_Hit (idx)
+	PlaySound "pinhit_low", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Targets_Hit (idx)
+	PlaySound "target", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 0, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Metals_Thin_Hit (idx)
+	PlaySound "metalhit_thin", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Metals_Medium_Hit (idx)
+	PlaySound "metalhit_medium", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Metals2_Hit (idx)
+	PlaySound "metalhit2", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Gates_Hit (idx)
+	PlaySound "gate4", 0, Vol(ActiveBall), AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+End Sub
+
+Sub Spinner_Spin
+	PlaySound "fx_spinner", 0, .25, AudioPan(Spinner), 0.25, 0, 0, 1, AudioFade(Spinner)
+End Sub
+
+Sub Rubbers_Hit(idx)
+ 	dim finalspeed
+  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+ 	If finalspeed > 20 then 
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*4, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End if
+	If finalspeed >= 6 AND finalspeed <= 20 then
+ 		RandomSoundRubber()
+ 	End If
+End Sub
+
+Sub Posts_Hit(idx)
+ 	dim finalspeed
+  	finalspeed=SQR(activeball.velx * activeball.velx + activeball.vely * activeball.vely)
+ 	If finalspeed > 16 then 
+		PlaySound "fx_rubber2", 0, Vol(ActiveBall)*4, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End if
+	If finalspeed >= 6 AND finalspeed <= 16 then
+ 		RandomSoundRubber()
+ 	End If
+End Sub
+
+Sub RandomSoundRubber()
+	Select Case Int(Rnd*3)+1
+		Case 1 : PlaySound "rubber_hit_1", 0, Vol(ActiveBall)*4, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "rubber_hit_2", 0, Vol(ActiveBall)*4, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "rubber_hit_3", 0, Vol(ActiveBall)*4, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End Select
+End Sub
+
+Sub LeftFlipper_Collide(parm)
+ 	RandomSoundFlipper()
+End Sub
+
+Sub RightFlipper_Collide(parm)
+ 	RandomSoundFlipper()
+End Sub
+
+Sub RandomSoundFlipper()
+	Select Case Int(Rnd*3)+1
+		Case 1 : PlaySound "flip_hit_1", 0, Vol(ActiveBall)*4, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 2 : PlaySound "flip_hit_2", 0, Vol(ActiveBall)*4, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+		Case 3 : PlaySound "flip_hit_3", 0, Vol(ActiveBall)*4, AudioPan(ActiveBall), 0, Pitch(ActiveBall), 1, 0, AudioFade(ActiveBall)
+	End Select
+End Sub
