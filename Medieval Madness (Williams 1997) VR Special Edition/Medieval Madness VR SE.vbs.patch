@@ -1,5 +1,5 @@
---- "Medieval Madness VR SE.vbs.original"	2024-05-31 08:07:06.399173019 -0700
-+++ "Medieval Madness VR SE.vbs"	2024-05-31 08:07:23.839287944 -0700
+--- Medieval Madness VR SE.vbs.original
++++ Medieval Madness VR SE.vbs
 @@ -2185,7 +2185,12 @@
  Sub InitLamps
  On Error Resume Next

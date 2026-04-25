@@ -1550,6 +1550,16 @@
     }
   },
   {
+    "file": "Medieval Madness VR SE.vbs.original",
+    "sha256": "d88623fe015e637dd89d2330ffe9deef8eae62c8e9e8e555f7ca086fc395e065",
+    "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Medieval Madness (Williams 1997) VR Special Edition/Medieval Madness VR SE.vbs.original",
+    "patched": {
+      "file": "Medieval Madness VR SE.vbs",
+      "sha256": "9055998b2d74279b8823dd3bc85db4de30034f039443b2e007db7bab7738c161",
+      "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Medieval Madness (Williams 1997) VR Special Edition/Medieval Madness VR SE.vbs"
+    }
+  },
+  {
     "file": "Medusa (Bally 1981) w VR Room v2.0.1.vbs.original",
     "sha256": "88fe9ceb40a63b0f49acd46cbadb95204e2e03fddd266a5071a7492a15840a9d",
     "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Medusa (Bally 1981) w VR Room v2.0.1/Medusa (Bally 1981) w VR Room v2.0.1.vbs.original",
