@@ -1,6 +1,18 @@
 --- Apollo 13 (Sega 1995) w VR Room v2.1.1.vbs.original
 +++ Apollo 13 (Sega 1995) w VR Room v2.1.1.vbs
-@@ -2624,6 +2624,31 @@
+@@ -265,6 +265,11 @@
+ 	End With
+ 	On Error Goto 0
+ 
++	' PinReady: fix for vpinball/vpinball#1783 - register direct B2S callbacks
++	' before the polling fallback kicks in (~925 ms). Without this, solenoids
++	' get consumed by two readers and flippers stick in the up position.
++	vpmInit Me
++
+ 	If b2son Then bgsko = bkgg	
+ 
+ 'ignore all solenoids - then add the timer to renable all the solenoids after 2 seconds
+@@ -2624,6 +2629,31 @@
  '		STAND-UP TARGET INITIALIZATION
  '******************************************************
  
@@ -32,7 +44,7 @@
  'Define a variable for each stand-up target
  
  Dim ST25, ST26, ST27, ST28, ST29, ST30, ST31, ST32, ST38, ST40, ST491, ST492, ST493	'Rectangle Stand Up Targets
-@@ -2642,19 +2667,19 @@
+@@ -2642,19 +2672,19 @@
  'these are inclined primitives to simulate hitting a bent target and should provide so z velocity on high speed impacts
  
  
@@ -65,7 +77,7 @@
  
  Dim STArray
  STArray = Array(ST25, ST26, ST27, ST28, ST29, ST30, ST31, ST32, ST38, ST40, ST491, ST492, ST493)
-@@ -2674,10 +2699,10 @@
+@@ -2674,10 +2704,10 @@
  	i = STArrayID(switch)
  
  	PlayTargetSound
@@ -79,7 +91,7 @@
  	End If
  	DoSTAnim
  End Sub
-@@ -2739,7 +2764,7 @@
+@@ -2739,7 +2769,7 @@
  Sub DoSTAnim()
  	Dim i
  	For i=0 to Ubound(STArray)
