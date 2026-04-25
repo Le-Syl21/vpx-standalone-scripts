@@ -200,6 +200,16 @@
     }
   },
   {
+    "file": "America's Most Haunted (Spooky Pinball 2014)_Bigus(MOD)3.0.vbs.original",
+    "sha256": "8a7dafd0eae3433d38017aaf1fb2a991dccc4f0a22525ec5f99bbe2c8093df46",
+    "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/America's Most Haunted (Spooky Pinball 2014)_Bigus(MOD)3.0/America's Most Haunted (Spooky Pinball 2014)_Bigus(MOD)3.0.vbs.original",
+    "patched": {
+      "file": "America's Most Haunted (Spooky Pinball 2014)_Bigus(MOD)3.0.vbs",
+      "sha256": "f08f58294005116163af319324260862fce6126c0f846577ddaae12cb114c762",
+      "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/America's Most Haunted (Spooky Pinball 2014)_Bigus(MOD)3.0/America's Most Haunted (Spooky Pinball 2014)_Bigus(MOD)3.0.vbs"
+    }
+  },
+  {
     "file": "Andromeda (Game Plan 1985) v4.vbs.original",
     "sha256": "6bf7c754234932850771243f1963369d0c9b13efd15458a3479a3c77e5dcda82",
     "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Andromeda (Game Plan 1985) v4/Andromeda (Game Plan 1985) v4.vbs.original",
