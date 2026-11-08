@@ -1,0 +1,89 @@
+--- JP's Deadpool v610.vbs.original
++++ JP's Deadpool v610.vbs
+@@ -709,13 +709,13 @@
+             LightSeqGi.Play SeqAlloff
+         Case 1 'all blink
+             LightSeqGi.UpdateInterval = 20
+-            LightSeqGi.Play SeqBlinking, , 15, 10
++            LightSeqGi.Play SeqBlinking, 0, 15, 10
+         Case 2 'random
+             LightSeqGi.UpdateInterval = 20
+-            LightSeqGi.Play SeqRandom, 50, , 1000
++            LightSeqGi.Play SeqRandom, 50, 1, 1000
+         Case 3 'all blink fast
+             LightSeqGi.UpdateInterval = 20
+-            LightSeqGi.Play SeqBlinking, , 10, 10
++            LightSeqGi.Play SeqBlinking, 0, 10, 10
+         Case 4 'seq up
+             LightSeqGi.UpdateInterval = 3
+             LightSeqGi.Play SeqUpOn, 25, 3
+@@ -731,13 +731,13 @@
+             LightSeqInserts.Play SeqAlloff
+         Case 1 'all blink
+             LightSeqInserts.UpdateInterval = 10
+-            LightSeqInserts.Play SeqBlinking, , 15, 10
++            LightSeqInserts.Play SeqBlinking, 0, 15, 10
+         Case 2 'random
+             LightSeqInserts.UpdateInterval = 10
+-            LightSeqInserts.Play SeqRandom, 50, , 1000
++            LightSeqInserts.Play SeqRandom, 50, 1, 1000
+         Case 3 'all blink fast
+             LightSeqInserts.UpdateInterval = 10
+-            LightSeqInserts.Play SeqBlinking, , 10, 10
++            LightSeqInserts.Play SeqBlinking, 0, 10, 10
+         Case 4 'center fra lilDP
+             LightSeqlilDP.UpdateInterval = 4
+             LightSeqlilDP.Play SeqCircleOutOn, 15, 2
+@@ -756,13 +756,13 @@
+             LightSeqFlashers.Play SeqAlloff
+         Case 1 'all blink
+             LightSeqFlashers.UpdateInterval = 40
+-            LightSeqFlashers.Play SeqBlinking, , 15, 30
++            LightSeqFlashers.Play SeqBlinking, 0, 15, 30
+         Case 2 'random
+             LightSeqFlashers.UpdateInterval = 30
+-            LightSeqFlashers.Play SeqRandom, 25, , 1500
++            LightSeqFlashers.Play SeqRandom, 25, 1, 1500
+         Case 3 'all blink fast
+             LightSeqFlashers.UpdateInterval = 20
+-            LightSeqFlashers.Play SeqBlinking, , 10, 30
++            LightSeqFlashers.Play SeqBlinking, 0, 10, 30
+         Case 4 'center
+             LightSeqFlashers.UpdateInterval = 4
+             LightSeqFlashers.Play SeqCircleOutOn, 15, 2
+@@ -2741,7 +2741,7 @@
+ Sub StartLightSeq()
+     'lights sequences
+     LightSeqAttract.UpdateInterval = 25
+-    LightSeqAttract.Play SeqBlinking, , 5, 150
++    LightSeqAttract.Play SeqBlinking, 0, 5, 150
+     LightSeqAttract.Play SeqAllOff
+     LightSeqAttract.UpdateInterval = 8
+     LightSeqAttract.Play SeqUpOn, 50, 1
+@@ -4823,7 +4823,7 @@
+             For each x in aSwordLights:x.BlinkInterval = 250:x.BlinkPattern = 10:x.State = 2:Next
+         Case 2 'all blink when a ball is locked
+             LightSeqSword.UpdateInterval = 20
+-            LightSeqSword.Play SeqRandom, 7, , 1000
++            LightSeqSword.Play SeqRandom, 7, 1, 1000
+         Case 3 'top down eject balls
+             LightSeqSword.UpdateInterval = 8
+             LightSeqSword.Play SeqDownOn, 7, 1
+@@ -4961,7 +4961,7 @@
+         Case 1 'Juggernaut
+             DMD "  SHOOT DP TARGETS", "TO ATTACK JUGGERNAUT", "d_juggernaut", eNone, eNone, eNone, 3000, True, "vo_shootflashingshots"
+             If LifeLeft(CurrentPlayer, 1)> 6 Then
+-                LightSeqDPtargets.Play SeqRandom, 40, , 4000
++                LightSeqDPtargets.Play SeqRandom, 40, 1, 4000
+             Else
+                 BattleLights(2) = 2:BattleLights(5) = 2
+             End If
+@@ -5048,7 +5048,7 @@
+ End Sub
+ 
+ Sub LightSeqDPtargets_PlayDone()
+-    LightSeqDPtargets.Play SeqRandom, 40, , 4000
++    LightSeqDPtargets.Play SeqRandom, 40, 1, 4000
+ End Sub
+ 
+ Sub CheckBattle 'called after each target or lane hit to change lights and check for the end of the battle

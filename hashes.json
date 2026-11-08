@@ -1300,6 +1300,16 @@
     }
   },
   {
+    "file": "JP's Deadpool v610.vbs.original",
+    "sha256": "da31f242de2354d5c44976cc81ea3b269e193d9061965b9f796dfa1a321a6c7d",
+    "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/JPs Deadpool v610/JP's Deadpool v610.vbs.original",
+    "patched": {
+      "file": "JP's Deadpool v610.vbs",
+      "sha256": "9ce72fdb29e6b5fbad4a695c5fd67c3d72d10812b91adc79ec98782218896e06",
+      "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/JPs Deadpool v610/JP's Deadpool v610.vbs"
+    }
+  },
+  {
     "file": "Jack-Bot (Williams 1995).vbs.original",
     "sha256": "8edd32cea57460f1d76b864e39b742bb3bc77c0c201816a72094e4476c516c8b",
     "url": "https://raw.githubusercontent.com/Le-Syl21/vpx-standalone-scripts/refs/heads/master/Jack-Bot (Williams 1995)/Jack-Bot (Williams 1995).vbs.original",
