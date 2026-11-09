@@ -5,7 +5,7 @@
  SolCallback(sLRFlipper) = "SolRFlipper"
  SolCallback(sLLFlipper) = "SolLFlipper"
 -SolCallback(2)     		= "vpmSolSound Soundfx(""Knocker"",DOFKnocker)" 
-+' SolCallback(2)     		= "vpmSolSound Soundfx(""Knocker"",DOFKnocker)," 
++SolCallback(2)     		= "vpmSolSound Soundfx(""Knocker"",DOFKnocker)," 
  
  Set vpmShowDips 		= GetRef("editDips")
  Set LampCallback		= GetRef("UpdateMultipleLamps")
